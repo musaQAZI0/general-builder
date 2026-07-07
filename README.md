@@ -12,8 +12,9 @@ password).
 - bcryptjs, react-hook-form + zod
 
 ## Getting started
-1. Ensure local MongoDB is running (default `mongodb://127.0.0.1:27017`).
-2. Environment variables are in `.env.local` (see `.env.example`).
+1. Set `MONGODB_URI` in `.env.local`. Either a MongoDB Atlas cloud cluster
+   (`mongodb+srv://…`) or a local instance (`mongodb://127.0.0.1:27017/general-builder`).
+2. Other environment variables are in `.env.local` (see `.env.example`).
 3. Install & run:
    ```bash
    npm install

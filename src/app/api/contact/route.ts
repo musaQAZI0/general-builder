@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/mongodb";
 import Quote from "@/models/Quote";
 import { quoteSchema } from "@/lib/validation";
+import { sendQuoteNotificationEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -27,7 +28,21 @@ export async function POST(request: Request) {
 
     await connectToDatabase();
 
-    await Quote.create({ name, phone, message, service });
+    const quote = await Quote.create({ name, phone, message, service });
+
+    // Notify the business owner. Wrapped in try/catch so a mail failure never
+    // blocks the (already successful) save or the user's success response.
+    try {
+      await sendQuoteNotificationEmail({
+        name: quote.name,
+        phone: quote.phone,
+        message: quote.message,
+        service: quote.service,
+        createdAt: quote.createdAt,
+      });
+    } catch (mailErr) {
+      console.error("Quote notification email failed (quote still saved):", mailErr);
+    }
 
     return NextResponse.json(
       { message: "Your quote request has been received. We'll be in touch soon!" },
