@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-base-950 text-gray-100 antialiased;
+  /* Safety net: never allow horizontal scroll on any screen width. */
+  overflow-x: hidden;
+}
