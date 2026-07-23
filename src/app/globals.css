@@ -20,7 +20,7 @@ body { @apply bg-canvas font-sans text-ink antialiased; overflow-x:hidden; font-
 .text-\[\#101c35\]\/70 { color:rgba(24,55,47,.7) !important; }
 .bg-\[\#d5ad55\] { background-color:#c8aa68 !important; }
 .text-\[\#d5ad55\] { color:#d2b776 !important; }
-.text-\[\#b98a28\], .text-\[\#c99d3d\] { color:#a98235 !important; }
+.text-\[\#b98a28\], .text-\[\#c99d3d\] { color:#75551f !important; }
 .border-\[\#c99d3d\] { border-color:#a98235 !important; }
 .bg-\[\#f5f6f8\] { background-color:#f3eee2 !important; }
 .from-\[\#081329\]\/95 { --tw-gradient-from:rgba(15,43,36,.96) var(--tw-gradient-from-position) !important; }
@@ -39,11 +39,16 @@ body { @apply bg-canvas font-sans text-ink antialiased; overflow-x:hidden; font-
   input, select, textarea { @apply !rounded-none !border-ink/15 !bg-white !px-4 !py-3 !text-ink placeholder:!text-ink/35 focus:!border-green focus:!ring-1 focus:!ring-green; }
   label { @apply !text-ink/75; }
   form button[type="submit"] { @apply !min-h-[50px] !rounded-none !bg-green !font-bold !text-white hover:!bg-ink; }
-  .rcb-kicker { @apply text-[11px] font-bold uppercase tracking-[.2em] text-[#a98235]; }
+  .rcb-kicker { @apply text-[11px] font-bold uppercase tracking-[.2em] text-[#75551f]; }
   .rcb-title { @apply font-display text-4xl font-semibold leading-[1.02] tracking-[-.025em] text-[#18372f] sm:text-6xl; }
   .rcb-gold-btn { @apply inline-flex min-h-[54px] items-center justify-center gap-8 bg-[#c8aa68] px-6 text-sm font-bold text-[#18372f] transition hover:bg-white; }
   .rcb-outline-btn { @apply inline-flex min-h-[54px] items-center justify-center border border-white/50 px-7 text-sm font-bold text-white transition hover:bg-white hover:text-[#101c35]; }
   .trust-cell { @apply flex min-h-[105px] flex-col items-center justify-center border-r border-[#101c35]/10 text-center; }
   .trust-cell b { @apply text-2xl font-bold text-[#18372f]; }
-  .trust-cell span { @apply mt-1 text-[10px] font-bold uppercase tracking-[.14em] text-slate-500; }
+  .trust-cell span { @apply mt-1 text-[10px] font-bold uppercase tracking-[.14em] text-slate-700; }
+}
+
+.bg-\[\#101c35\] .rcb-kicker,
+footer.bg-\[\#101c35\] .rcb-kicker {
+  color: #d2b776 !important;
 }

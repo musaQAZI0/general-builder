@@ -105,7 +105,7 @@ export default function HomePage() {
               quality={78}
             />
             <div className="absolute bottom-4 left-4 right-4 bg-[#f7f3e9] px-5 py-4 text-[#18372f] shadow-xl sm:bottom-5 sm:left-auto sm:right-5">
-              <p className="text-[10px] font-bold uppercase tracking-[.18em] text-[#a98235]">Recently completed</p>
+              <p className="text-[10px] font-bold uppercase tracking-[.18em] text-[#75551f]">Recently completed</p>
               <p className="mt-1 text-sm font-bold">Rear extension - Richmond</p>
             </div>
           </div>
@@ -159,7 +159,7 @@ export default function HomePage() {
                 <div key={n} className="bg-[#101c35] px-6 py-8">
                   <span className="text-sm font-bold text-[#d5ad55]">{n}</span>
                   <h3 className="mt-7 font-bold">{t}</h3>
-                  <p className="mt-3 text-sm leading-6 text-white/50">{d}</p>
+                  <p className="mt-3 text-sm leading-6 text-white/70">{d}</p>
                 </div>
               ))}
             </div>
@@ -208,7 +208,7 @@ export default function HomePage() {
               <div className="md:text-right">
                 <div className="text-2xl tracking-[.12em] text-[#d5ad55]">*****</div>
                 <p className="mt-2 text-sm font-bold">4.9 average customer rating</p>
-                <p className="mt-1 text-xs text-white/45">Based on verified client feedback</p>
+                <p className="mt-1 text-xs text-white/70">Based on verified client feedback</p>
               </div>
             </div>
             <div className="mt-10 grid gap-5 lg:grid-cols-3">
@@ -218,7 +218,7 @@ export default function HomePage() {
                   <p className="mt-7 flex-1 text-base leading-7 text-white/78">&quot;{quote}&quot;</p>
                   <footer className="mt-8 border-t border-white/10 pt-5">
                     <cite className="font-bold not-italic text-white">{name}</cite>
-                    <p className="mt-1 text-xs text-white/45">{project}</p>
+                    <p className="mt-1 text-xs text-white/70">{project}</p>
                   </footer>
                 </blockquote>
               ))}
@@ -286,7 +286,7 @@ export default function HomePage() {
         <section className="bg-[#d5ad55] py-16">
           <div className="mx-auto flex max-w-7xl flex-col justify-between gap-8 px-5 sm:px-8 md:flex-row md:items-center lg:px-10">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[.2em] text-[#101c35]/60">Let&apos;s build it properly</p>
+              <p className="text-xs font-bold uppercase tracking-[.2em] text-[#18372f]">Let&apos;s build it properly</p>
               <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Tell us about your project.</h2>
             </div>
             <Link href="/signup" className="inline-flex min-h-14 items-center justify-center gap-10 bg-[#101c35] px-7 font-bold text-white">Get a free estimate <span>-&gt;</span></Link>
