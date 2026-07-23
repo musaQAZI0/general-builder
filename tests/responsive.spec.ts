@@ -48,7 +48,7 @@ test.describe("Responsive design", () => {
       .poll(async () => (await panel.boundingBox())?.height ?? 0)
       .toBeGreaterThan(40);
     await expect(
-      panel.getByRole("link", { name: "Sign Up" })
+      panel.getByRole("link", { name: "Request estimate" })
     ).toBeVisible();
 
     // Close -> panel collapses again.
@@ -65,7 +65,7 @@ test.describe("Responsive design", () => {
     await page.goto("/");
     await expect(page.getByRole("button", { name: "Open menu" })).toBeHidden();
     await expect(
-      page.locator("header").getByRole("link", { name: "Sign Up" })
+      page.locator("header").getByRole("link", { name: "Request estimate" })
     ).toBeVisible();
   });
 
@@ -113,6 +113,6 @@ test.describe("Responsive design", () => {
 
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/dashboard");
-    expect(await topRowColumns(page)).toBe(3);
+    expect(await topRowColumns(page)).toBe(5);
   });
 });

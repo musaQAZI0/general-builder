@@ -8,19 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Manrope", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["Cormorant Garamond", "Georgia", "serif"],
+      },
       colors: {
-        brand: {
-          // amber/orange accent
-          500: "#f59e0b",
-          600: "#d97706",
-          700: "#b45309",
-        },
+        brand: { 500: "#376f60", 600: "#234d43", 700: "#172522" },
         base: {
-          // dark navy/gray base
-          800: "#1f2937",
-          900: "#111827",
-          950: "#0b1120",
+          800: "#35504a", 900: "#234d43", 950: "#172522",
         },
+        ink: "#172522", green: "#234d43", canvas: "#f5f3ed", sand: "#d9c79f", muted: "#68736f",
       },
     },
   },

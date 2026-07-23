@@ -2,12 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
-}
+:root { --ink:#18372f; --green:#245548; --canvas:#f7f3e9; --sand:#c8aa68; --muted:#66736d; }
+html { scroll-behavior:smooth; }
+body { @apply bg-canvas font-sans text-ink antialiased; overflow-x:hidden; font-feature-settings:"kern" 1,"liga" 1,"calt" 1; text-rendering:optimizeLegibility; }
+::selection { background:#d9c79f; color:#172522; }
 
-body {
-  @apply bg-base-950 text-gray-100 antialiased;
-  /* Safety net: never allow horizontal scroll on any screen width. */
-  overflow-x: hidden;
+/* Flint LTD nature palette — maps the RCB-inspired structure to forest,
+   warm cream and a restrained heritage gold. */
+.bg-\[\#101c35\] { background-color:#18372f !important; }
+.hover\:bg-\[\#101c35\]:hover { background-color:#245548 !important; }
+.text-\[\#101c35\] { color:#18372f !important; }
+.border-\[\#101c35\]\/10 { border-color:rgba(24,55,47,.1) !important; }
+.border-\[\#101c35\]\/15 { border-color:rgba(24,55,47,.15) !important; }
+.border-\[\#101c35\]\/20 { border-color:rgba(24,55,47,.2) !important; }
+.text-\[\#101c35\]\/60 { color:rgba(24,55,47,.6) !important; }
+.text-\[\#101c35\]\/65 { color:rgba(24,55,47,.65) !important; }
+.text-\[\#101c35\]\/70 { color:rgba(24,55,47,.7) !important; }
+.bg-\[\#d5ad55\] { background-color:#c8aa68 !important; }
+.text-\[\#d5ad55\] { color:#d2b776 !important; }
+.text-\[\#b98a28\], .text-\[\#c99d3d\] { color:#a98235 !important; }
+.border-\[\#c99d3d\] { border-color:#a98235 !important; }
+.bg-\[\#f5f6f8\] { background-color:#f3eee2 !important; }
+.from-\[\#081329\]\/95 { --tw-gradient-from:rgba(15,43,36,.96) var(--tw-gradient-from-position) !important; }
+.via-\[\#101c35\]\/75 { --tw-gradient-via:rgba(24,55,47,.78) var(--tw-gradient-via-position) !important; }
+.to-\[\#101c35\]\/15 { --tw-gradient-to:rgba(24,55,47,.15) var(--tw-gradient-to-position) !important; }
+.hero-grid { background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px; }
+.construction-lines { background:linear-gradient(135deg,transparent 48%,rgba(217,199,159,.09) 49%,rgba(217,199,159,.09) 51%,transparent 52%);background-size:90px 90px; }
+
+@layer components {
+  .eyebrow { @apply text-[11px] font-bold uppercase tracking-[.22em]; }
+  .font-editorial { @apply font-display font-semibold italic tracking-[-.025em]; }
+  .section-title { @apply text-4xl font-semibold leading-[1.06] tracking-[-.035em] text-ink sm:text-5xl; }
+  .btn-primary { @apply inline-flex min-h-[52px] items-center justify-center gap-8 bg-sand px-6 text-sm font-bold text-ink transition hover:bg-white; }
+  .btn-dark { @apply inline-flex min-h-[52px] items-center justify-center gap-8 bg-ink px-6 text-sm font-bold text-white transition hover:bg-green; }
+  .btn-ghost { @apply inline-flex min-h-[52px] items-center justify-center border border-white/25 px-7 text-sm font-semibold text-white transition hover:bg-white hover:text-ink; }
+  input, select, textarea { @apply !rounded-none !border-ink/15 !bg-white !px-4 !py-3 !text-ink placeholder:!text-ink/35 focus:!border-green focus:!ring-1 focus:!ring-green; }
+  label { @apply !text-ink/75; }
+  form button[type="submit"] { @apply !min-h-[50px] !rounded-none !bg-green !font-bold !text-white hover:!bg-ink; }
+  .rcb-kicker { @apply text-[11px] font-bold uppercase tracking-[.2em] text-[#a98235]; }
+  .rcb-title { @apply font-display text-4xl font-semibold leading-[1.02] tracking-[-.025em] text-[#18372f] sm:text-6xl; }
+  .rcb-gold-btn { @apply inline-flex min-h-[54px] items-center justify-center gap-8 bg-[#c8aa68] px-6 text-sm font-bold text-[#18372f] transition hover:bg-white; }
+  .rcb-outline-btn { @apply inline-flex min-h-[54px] items-center justify-center border border-white/50 px-7 text-sm font-bold text-white transition hover:bg-white hover:text-[#101c35]; }
+  .trust-cell { @apply flex min-h-[105px] flex-col items-center justify-center border-r border-[#101c35]/10 text-center; }
+  .trust-cell b { @apply text-2xl font-bold text-[#18372f]; }
+  .trust-cell span { @apply mt-1 text-[10px] font-bold uppercase tracking-[.14em] text-slate-500; }
 }

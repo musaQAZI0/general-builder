@@ -1,44 +1,8 @@
-export interface Service {
-  slug: string;
-  title: string;
-  description: string;
-  icon: string;
-}
-
+export interface Service { slug: string; title: string; description: string; icon: string; }
 export const SERVICES: Service[] = [
-  {
-    slug: "new-extensions",
-    title: "New Extensions",
-    description:
-      "Expand your home with expertly built extensions — from single-storey kitchens to full multi-room additions.",
-    icon: "🏗️",
-  },
-  {
-    slug: "refurbishment",
-    title: "Refurbishment",
-    description:
-      "Complete property refurbishments that modernise, restore and add value to your space, inside and out.",
-    icon: "🛠️",
-  },
-  {
-    slug: "electrical-work",
-    title: "Electrical Work",
-    description:
-      "Safe, certified electrical installations, rewiring, lighting and fault-finding by qualified electricians.",
-    icon: "⚡",
-  },
-  {
-    slug: "plumbing-work",
-    title: "Plumbing Work",
-    description:
-      "Reliable plumbing services covering bathrooms, kitchens, heating, leaks and full pipe installations.",
-    icon: "🔧",
-  },
-  {
-    slug: "painting",
-    title: "Painting",
-    description:
-      "Professional interior and exterior painting and decorating for a clean, lasting, high-quality finish.",
-    icon: "🎨",
-  },
+  { slug:"new-extensions", title:"Extensions", description:"Thoughtfully designed additions that create more room and lasting value.", icon:"01" },
+  { slug:"refurbishment", title:"Refurbishment", description:"Complete property transformations, carefully managed inside and out.", icon:"02" },
+  { slug:"electrical-work", title:"Electrical", description:"Safe, certified installations, rewiring, lighting and fault finding.", icon:"03" },
+  { slug:"plumbing-work", title:"Plumbing", description:"Reliable plumbing for kitchens, bathrooms, heating and new installations.", icon:"04" },
+  { slug:"painting", title:"Painting", description:"Crisp interior and exterior finishes, prepared to look better for longer.", icon:"05" },
 ];

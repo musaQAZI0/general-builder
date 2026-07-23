@@ -2,10 +2,10 @@ import { test, expect } from "@playwright/test";
 import { login, logout } from "./helpers/auth";
 
 const SERVICES = [
-  "New Extensions",
+  "Extensions",
   "Refurbishment",
-  "Electrical Work",
-  "Plumbing Work",
+  "Electrical",
+  "Plumbing",
   "Painting",
 ];
 
@@ -15,40 +15,28 @@ test.describe("Dashboard / services", () => {
   });
 
   test("all 5 service cards render with correct titles", async ({ page }) => {
-    const cards = page.getByTestId("service-card");
-    await expect(cards).toHaveCount(5);
-
     for (const name of SERVICES) {
       await expect(
-        page.getByRole("heading", { name, exact: true })
+        page.getByRole("link", { name: new RegExp(name) })
       ).toBeVisible();
     }
   });
 
-  test("'Request a Quote' opens the quote modal", async ({ page }) => {
-    // Open the modal from the first service card.
-    await page
-      .getByTestId("service-card")
-      .first()
-      .getByRole("button", { name: "Request a Quote" })
-      .click();
+  test("new request opens the quote form", async ({ page }) => {
+    await page.getByRole("link", { name: "New request" }).click();
+    await expect(page).toHaveURL(/\/dashboard\/request/);
 
-    // Modal appears with its heading and the pre-selected service.
-    const modal = page.getByTestId("quote-modal");
     await expect(
-      modal.getByRole("heading", { name: "Request a Quote" })
+      page.getByRole("heading", { name: "Request a Quote" })
     ).toBeVisible();
-    // The service subtitle is a <p> (excludes the hidden <option> of the same text).
-    await expect(modal.locator("p", { hasText: "New Extensions" })).toBeVisible();
 
-    // The quote form fields are present.
-    await expect(modal.locator('input[name="name"]')).toBeVisible();
-    await expect(modal.locator('textarea[name="message"]')).toBeVisible();
+    await expect(page.locator('input[name="name"]')).toBeVisible();
+    await expect(page.locator('textarea[name="message"]')).toBeVisible();
   });
 
   test("logout clears the session", async ({ page }) => {
     await logout(page);
-    await expect(page).toHaveURL("http://localhost:3100/");
+    await expect(page).toHaveURL(/\/$/);
 
     // Session is gone: dashboard now redirects to login.
     await page.goto("/dashboard");

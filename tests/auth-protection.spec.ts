@@ -16,7 +16,7 @@ test.describe("Route protection", () => {
     await page.goto("/dashboard");
     await expect(page).toHaveURL(/\/dashboard$/);
     await expect(
-      page.getByRole("heading", { name: "Our Services" })
+      page.getByRole("heading", { name: /Good to see you/i })
     ).toBeVisible();
   });
 
@@ -30,10 +30,13 @@ test.describe("Route protection", () => {
     await expect(page).toHaveURL(/\/login/);
   });
 
-  test("protected /contact also redirects to /login when logged out", async ({
+  test("/contact is public for account and quote enquiries", async ({
     page,
   }) => {
     await page.goto("/contact");
-    await expect(page).toHaveURL(/\/login/);
+    await expect(page).toHaveURL(/\/contact$/);
+    await expect(
+      page.getByRole("heading", { name: "Invoice and payment queries" })
+    ).toBeVisible();
   });
 });

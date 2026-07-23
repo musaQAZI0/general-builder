@@ -12,7 +12,7 @@ import { defineConfig, devices } from "@playwright/test";
  *    console instead of sending real Gmail messages during tests.
  */
 
-const PORT = 3100;
+const PORT = 3300;
 const BASE_URL = `http://localhost:${PORT}`;
 
 export const TEST_MONGODB_URI =

@@ -24,11 +24,22 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, phone, message, service } = parsed.data;
+    const { name, phone, message, service, postcode, propertyType, timeline, budget, preferredContact } = parsed.data;
 
     await connectToDatabase();
 
-    const quote = await Quote.create({ name, phone, message, service });
+    const quote = await Quote.create({
+      userEmail: session.user?.email,
+      name,
+      phone,
+      message,
+      service,
+      postcode,
+      propertyType,
+      timeline,
+      budget,
+      preferredContact,
+    });
 
     // Notify the business owner. Wrapped in try/catch so a mail failure never
     // blocks the (already successful) save or the user's success response.
@@ -38,6 +49,12 @@ export async function POST(request: Request) {
         phone: quote.phone,
         message: quote.message,
         service: quote.service,
+        email: quote.userEmail,
+        postcode: quote.postcode,
+        propertyType: quote.propertyType,
+        timeline: quote.timeline,
+        budget: quote.budget,
+        preferredContact: quote.preferredContact,
         createdAt: quote.createdAt,
       });
     } catch (mailErr) {

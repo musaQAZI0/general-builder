@@ -11,6 +11,11 @@ test.describe("Contact / quote form", () => {
     await page.locator('input[name="name"]').fill("Jane Builder");
     await page.locator('input[name="phone"]').fill("+441234567890");
     await page.selectOption('select[name="service"]', "Painting");
+    await page.locator('input[name="postcode"]').fill("SW11 1AA");
+    await page.selectOption('select[name="propertyType"]', "Terraced house");
+    await page.selectOption('select[name="timeline"]', "Within 1-3 months");
+    await page.selectOption('select[name="budget"]', "GBP 10k-25k");
+    await page.selectOption('select[name="preferredContact"]', "Phone call");
     await page
       .locator('textarea[name="message"]')
       .fill("I'd like a quote to repaint the whole downstairs, please.");
@@ -32,5 +37,6 @@ test.describe("Contact / quote form", () => {
     await expect(
       page.getByText(/describe the job/i)
     ).toBeVisible();
+    await expect(page.getByText("Please enter the project postcode")).toBeVisible();
   });
 });

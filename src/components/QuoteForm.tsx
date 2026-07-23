@@ -31,7 +31,8 @@ export default function QuoteForm({
   const onSubmit = async (data: QuoteInput) => {
     setServerError(null);
     setSuccess(null);
-    try {
+    try
+    {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -39,15 +40,27 @@ export default function QuoteForm({
       });
       const json = await res.json();
 
-      if (!res.ok) {
+      if (!res.ok)
+      {
         setServerError(json.error ?? "Something went wrong");
         return;
       }
 
       setSuccess(json.message ?? "Your quote request has been received!");
-      reset({ name: "", phone: "", message: "", service: defaultService ?? "" });
+      reset({
+        name: "",
+        phone: "",
+        message: "",
+        service: defaultService ?? "",
+        postcode: "",
+        propertyType: "",
+        timeline: "",
+        budget: "",
+        preferredContact: "",
+      });
       onSuccess?.();
-    } catch {
+    } catch
+    {
       setServerError("Unable to reach the server. Please try again.");
     }
   };
@@ -72,7 +85,7 @@ export default function QuoteForm({
         <input
           {...register("name")}
           className="w-full rounded-md border border-white/10 bg-base-950 px-3 py-2.5 text-white outline-none focus:border-brand-500"
-          placeholder="John Smith"
+
         />
         {errors.name && (
           <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>
@@ -87,7 +100,7 @@ export default function QuoteForm({
           type="tel"
           {...register("phone")}
           className="w-full rounded-md border border-white/10 bg-base-950 px-3 py-2.5 text-white outline-none focus:border-brand-500"
-          placeholder="+44 7123 456789"
+
         />
         {errors.phone && (
           <p className="mt-1 text-xs text-red-400">{errors.phone.message}</p>
@@ -111,6 +124,100 @@ export default function QuoteForm({
         </select>
       </div>
 
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className="mb-1 block text-sm font-medium text-gray-300">
+            Project postcode
+          </label>
+          <input
+            {...register("postcode")}
+            className="w-full rounded-md border border-white/10 bg-base-950 px-3 py-2.5 text-white outline-none focus:border-brand-500"
+          />
+          {errors.postcode && (
+            <p className="mt-1 text-xs text-red-400">{errors.postcode.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="mb-1 block text-sm font-medium text-gray-300">
+            Property type
+          </label>
+          <select
+            {...register("propertyType")}
+            className="w-full rounded-md border border-white/10 bg-base-950 px-3 py-2.5 text-white outline-none focus:border-brand-500"
+          >
+            <option value="">Choose one</option>
+            <option>Terraced house</option>
+            <option>Semi-detached house</option>
+            <option>Detached house</option>
+            <option>Flat or apartment</option>
+            <option>Commercial property</option>
+          </select>
+          {errors.propertyType && (
+            <p className="mt-1 text-xs text-red-400">{errors.propertyType.message}</p>
+          )}
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className="mb-1 block text-sm font-medium text-gray-300">
+            Timeline
+          </label>
+          <select
+            {...register("timeline")}
+            className="w-full rounded-md border border-white/10 bg-base-950 px-3 py-2.5 text-white outline-none focus:border-brand-500"
+          >
+            <option value="">Choose one</option>
+            <option>As soon as possible</option>
+            <option>Within 1-3 months</option>
+            <option>Within 3-6 months</option>
+            <option>Planning ahead</option>
+          </select>
+          {errors.timeline && (
+            <p className="mt-1 text-xs text-red-400">{errors.timeline.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="mb-1 block text-sm font-medium text-gray-300">
+            Budget range
+          </label>
+          <select
+            {...register("budget")}
+            className="w-full rounded-md border border-white/10 bg-base-950 px-3 py-2.5 text-white outline-none focus:border-brand-500"
+          >
+            <option value="">Choose one</option>
+            <option>Under GBP 10k</option>
+            <option>GBP 10k-25k</option>
+            <option>GBP 25k-50k</option>
+            <option>GBP 50k-100k</option>
+            <option>GBP 100k+</option>
+          </select>
+          {errors.budget && (
+            <p className="mt-1 text-xs text-red-400">{errors.budget.message}</p>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label className="mb-1 block text-sm font-medium text-gray-300">
+          Preferred contact
+        </label>
+        <select
+          {...register("preferredContact")}
+          className="w-full rounded-md border border-white/10 bg-base-950 px-3 py-2.5 text-white outline-none focus:border-brand-500"
+        >
+          <option value="">Choose one</option>
+          <option>Phone call</option>
+          <option>WhatsApp</option>
+          <option>Email</option>
+        </select>
+        {errors.preferredContact && (
+          <p className="mt-1 text-xs text-red-400">{errors.preferredContact.message}</p>
+        )}
+      </div>
+
       <div>
         <label className="mb-1 block text-sm font-medium text-gray-300">
           Job details
@@ -119,7 +226,7 @@ export default function QuoteForm({
           rows={4}
           {...register("message")}
           className="w-full resize-y rounded-md border border-white/10 bg-base-950 px-3 py-2.5 text-white outline-none focus:border-brand-500"
-          placeholder="Tell us about the work you need doing…"
+          placeholder="Tell us about the work you need doing..."
         />
         {errors.message && (
           <p className="mt-1 text-xs text-red-400">{errors.message.message}</p>
@@ -131,7 +238,7 @@ export default function QuoteForm({
         disabled={isSubmitting}
         className="w-full rounded-md bg-brand-600 px-4 py-2.5 font-semibold text-white transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {isSubmitting ? "Sending…" : "Submit Quote Request"}
+        {isSubmitting ? "Sending..." : "Submit Quote Request"}
       </button>
     </form>
   );

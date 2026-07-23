@@ -13,7 +13,7 @@ test.describe("Login flow", () => {
     await login(page); // uses seeded TEST_USER
     await expect(page).toHaveURL(/\/dashboard$/);
     await expect(
-      page.getByRole("heading", { name: "Our Services" })
+      page.getByRole("heading", { name: /Good to see you/i })
     ).toBeVisible();
   });
 

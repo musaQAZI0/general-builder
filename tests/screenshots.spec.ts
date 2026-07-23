@@ -1,4 +1,5 @@
 import { test } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { login } from "./helpers/auth";
 
 /**
@@ -40,11 +41,8 @@ test.describe("Screenshots (report assets)", () => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await login(page);
     await page.goto("/dashboard");
-    await page
-      .getByTestId("service-card")
-      .first()
-      .getByRole("button", { name: "Request a Quote" })
-      .click();
+    await page.getByRole("button", { name: /Extensions/ }).click();
+    await expect(page.getByTestId("quote-modal")).toBeVisible();
     await page.screenshot({ path: "screenshots/05-quote-modal.png" });
   });
 

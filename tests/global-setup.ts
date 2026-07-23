@@ -1,7 +1,8 @@
 import { clearAll, seedUser, disconnectDb } from "./helpers/db";
 import { TEST_USER } from "./helpers/constants";
+import { startTestMongo } from "./helpers/mongo-memory";
 
-const BASE_URL = "http://localhost:3100";
+const BASE_URL = "http://localhost:3300";
 
 /** Simple cookie jar for the warm-up HTTP login. */
 function makeJar() {
@@ -90,6 +91,7 @@ async function warmUp() {
  *  - warms up the dev server's cold auth paths
  */
 async function globalSetup() {
+  await startTestMongo();
   await clearAll();
   await seedUser({
     email: TEST_USER.email,

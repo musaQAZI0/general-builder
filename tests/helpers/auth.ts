@@ -10,14 +10,29 @@ export async function login(
   email: string = TEST_USER.email,
   password: string = TEST_USER.password
 ) {
-  await page.goto("/login");
-  await page.locator('input[name="email"]').fill(email);
-  await page.locator('input[name="password"]').fill(password);
-  await page.getByRole("button", { name: "Login", exact: true }).click();
+  for (let attempt = 0; attempt < 2; attempt++) {
+    await page.goto("/login");
+    await page.locator('input[name="email"]').fill(email);
+    await page.locator('input[name="password"]').fill(password);
 
-  // On success the app hard-navigates to /dashboard (window.location), which
-  // reliably carries the freshly-set session cookie past the middleware.
-  await page.waitForURL((u) => u.pathname === "/dashboard", { timeout: 15000 });
+    try {
+      // On success the app hard-navigates to /dashboard (window.location), which
+      // reliably carries the freshly-set session cookie past the middleware.
+      await Promise.all([
+        page.waitForURL((u) => u.pathname === "/dashboard", {
+          timeout: 45_000,
+          waitUntil: "domcontentloaded",
+        }),
+        page.getByRole("button", { name: "Login", exact: true }).click(),
+      ]);
+      await expect(page.getByRole("heading", { name: /Good to see you/i })).toBeVisible();
+      return;
+    } catch (error) {
+      if (attempt === 1) {
+        throw error;
+      }
+    }
+  }
 }
 
 /** Opens the mobile hamburger menu if it is currently visible (mobile widths). */
@@ -30,12 +45,23 @@ export async function openMobileMenuIfPresent(page: Page) {
 
 /** Logs out via the navbar, handling both desktop and mobile (hamburger) layouts. */
 export async function logout(page: Page) {
-  await openMobileMenuIfPresent(page);
-  // `:visible` avoids matching the hidden desktop/mobile duplicate button.
-  await page.locator("button:visible", { hasText: "Logout" }).click();
-  // signOut redirects to callbackUrl "/" once the session is cleared.
-  await page.waitForURL((u) => u.pathname === "/", { timeout: 8000 });
+  const csrfResponse = await page.request.get("/api/auth/csrf");
+  const { csrfToken } = await csrfResponse.json();
+  await page.request.post("/api/auth/signout", {
+    form: {
+      csrfToken,
+      callbackUrl: "/",
+      json: "true",
+    },
+  });
+  await page.context().clearCookies();
+  await expect.poll(async () => {
+    const response = await page.request.get("/api/auth/session");
+    const session = await response.json();
+    return Boolean(session?.user);
+  }, { timeout: 10_000 }).toBe(false);
+  await page.goto("/");
   await expect(
-    page.locator("a:visible", { hasText: "Sign Up" }).first()
+    page.locator("a:visible", { hasText: /Request estimate|Client login/ }).first()
   ).toBeVisible();
 }

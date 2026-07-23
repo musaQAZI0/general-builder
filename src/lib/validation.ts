@@ -26,6 +26,16 @@ export const quoteSchema = z.object({
     .regex(/^[+]?[\d\s()-]{7,20}$/, "Please enter a valid phone number"),
   message: z.string().trim().min(5, "Please describe the job (min 5 characters)"),
   service: z.string().trim().optional(),
+  postcode: z.string().trim().min(3, "Please enter the project postcode").max(12, "Please enter a valid postcode"),
+  propertyType: z.string().trim().min(1, "Please choose a property type"),
+  timeline: z.string().trim().min(1, "Please choose a timeline"),
+  budget: z.string().trim().min(1, "Please choose a budget range"),
+  preferredContact: z.string().trim().min(1, "Please choose a contact method"),
+});
+
+export const quoteStatusSchema = z.object({
+  status: z.enum(["Received", "Reviewing", "Estimate Sent", "Approved", "In Progress", "Completed"]),
+  adminNotes: z.string().trim().max(1000, "Notes must be under 1000 characters").optional(),
 });
 
 export const forgotPasswordSchema = z.object({

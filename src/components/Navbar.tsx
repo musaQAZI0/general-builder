@@ -1,136 +1,118 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { COMPANY } from "@/lib/company";
+
+const publicLinks = [
+  ["Services", "/#services"],
+  ["Process", "/#process"],
+  ["Projects", "/#projects"],
+  ["Accounts", "/contact"],
+];
+
+function Logo() {
+  return (
+    <span className="flex items-center gap-3">
+      <span className="relative h-12 w-12 overflow-hidden border border-[#18372f]/10 bg-white">
+        <Image
+          src="/flint-logo-ai.png"
+          alt=""
+          fill
+          sizes="48px"
+          className="object-contain p-1"
+          priority
+        />
+      </span>
+      <span>
+        <span className="block text-[15px] font-extrabold uppercase tracking-[.12em] text-[#18372f]">Flint LTD</span>
+        <span className="hidden text-[11px] font-semibold uppercase tracking-[.16em] text-slate-400 sm:block">
+          London construction
+        </span>
+      </span>
+    </span>
+  );
+}
 
 export default function Navbar() {
   const { data: session, status } = useSession();
   const [open, setOpen] = useState(false);
   const authed = status === "authenticated";
-  const close = () => setOpen(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-base-900/90 backdrop-blur">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:py-4">
-        {/* Brand — shrinks/truncates so it never gets cut off */}
-        <Link
-          href="/"
-          onClick={close}
-          className="flex min-w-0 items-center gap-2 text-base font-bold sm:text-lg"
-        >
-          <span className="text-brand-500">🏗️</span>
-          <span className="truncate">
-            General<span className="text-brand-500">Builder</span>
-          </span>
+    <header className="sticky top-0 z-40 border-b border-[#18372f]/10 bg-white/95 backdrop-blur">
+      <div className="hidden border-b border-[#18372f]/10 bg-[#18372f] text-white lg:block">
+        <div className="mx-auto flex h-10 max-w-7xl items-center justify-between px-10 text-xs">
+          <span className="font-semibold text-white/70">Company Reg. No. {COMPANY.registrationNumber}</span>
+          <div className="flex items-center gap-6">
+            <a href={COMPANY.accounts.phoneHref} className="font-bold text-[#d2b776]">{COMPANY.accounts.phone}</a>
+            <a href={COMPANY.accounts.emailHref} className="text-white/70 hover:text-white">{COMPANY.accounts.email}</a>
+          </div>
+        </div>
+      </div>
+
+      <nav className="mx-auto flex h-[74px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
+        <Link href="/" onClick={() => setOpen(false)} aria-label="Flint LTD home">
+          <Logo />
         </Link>
 
-        {/* Desktop nav (md and up) */}
-        <div className="hidden items-center gap-3 text-sm md:flex">
+        <div className="hidden items-center gap-7 text-sm lg:flex">
           {authed ? (
             <>
-              <Link
-                href="/dashboard"
-                className="text-gray-300 transition hover:text-white"
-              >
-                Dashboard
-              </Link>
-              <span className="max-w-[180px] truncate text-gray-500">
-                {session.user?.email}
-              </span>
+              <Link href="/dashboard" className="font-semibold text-[#18372f]/70 hover:text-[#a98235]">Client portal</Link>
+              <span className="max-w-[190px] truncate text-xs text-slate-500">{session.user?.email}</span>
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
-                className="rounded-md border border-white/15 px-4 py-2 font-medium text-gray-200 transition hover:bg-white/10"
+                className="border border-[#18372f]/15 px-5 py-2.5 text-sm font-bold text-[#18372f] hover:bg-[#18372f] hover:text-white"
               >
-                Logout
+                Log out
               </button>
             </>
           ) : (
             <>
-              <Link
-                href="/login"
-                className="rounded-md px-4 py-2 font-medium text-gray-200 transition hover:bg-white/10"
-              >
-                Login
-              </Link>
-              <Link
-                href="/signup"
-                className="rounded-md bg-brand-600 px-4 py-2 font-semibold text-white transition hover:bg-brand-700"
-              >
-                Sign Up
+              {publicLinks.map(([label, href]) => (
+                <Link key={label} href={href} className="font-semibold text-[#18372f]/70 hover:text-[#a98235]">
+                  {label}
+                </Link>
+              ))}
+              <Link href="/login" className="font-semibold text-[#18372f]">Client login</Link>
+              <Link href="/signup" className="bg-[#18372f] px-5 py-3 font-bold text-white transition hover:bg-[#245548]">
+                Request estimate
               </Link>
             </>
           )}
         </div>
 
-        {/* Mobile hamburger button (below md) — 44x44 touch target */}
         <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          className="flex h-11 w-11 items-center justify-center rounded-md text-gray-200 transition hover:bg-white/10 md:hidden"
+          onClick={() => setOpen((value) => !value)}
+          className="grid h-11 w-11 place-items-center border border-[#18372f]/15 text-[#18372f] lg:hidden"
         >
-          {open ? (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          ) : (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-          )}
+          <span className="text-xl">{open ? "x" : "="}</span>
         </button>
       </nav>
 
-      {/* Mobile menu panel — smoothly expands/collapses via max-height */}
-      <div
-        data-testid="mobile-menu"
-        className={`overflow-hidden transition-[max-height] duration-300 ease-in-out md:hidden ${
-          open ? "max-h-72 border-t border-white/10" : "max-h-0"
-        }`}
-      >
-        <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
+      <div data-testid="mobile-menu" className={`overflow-hidden border-[#18372f]/10 bg-white transition-all lg:hidden ${open ? "max-h-[430px] border-t" : "max-h-0"}`}>
+        <div className="flex flex-col gap-1 px-5 py-5 text-sm">
           {authed ? (
             <>
-              <span className="truncate px-2 py-1 text-xs text-gray-500">
-                {session.user?.email}
-              </span>
-              <Link
-                href="/dashboard"
-                onClick={close}
-                className="flex min-h-[44px] items-center rounded-md px-2 font-medium text-gray-200 transition hover:bg-white/10"
-              >
-                Dashboard
-              </Link>
-              <button
-                onClick={() => {
-                  close();
-                  signOut({ callbackUrl: "/" });
-                }}
-                className="flex min-h-[44px] items-center rounded-md border border-white/15 px-2 text-left font-medium text-gray-200 transition hover:bg-white/10"
-              >
-                Logout
-              </button>
+              <Link onClick={() => setOpen(false)} href="/dashboard" className="py-3 font-bold">Client portal</Link>
+              <button onClick={() => signOut({ callbackUrl: "/" })} className="mt-2 bg-[#18372f] px-5 py-3 text-left font-bold text-white">Log out</button>
             </>
           ) : (
             <>
-              <Link
-                href="/login"
-                onClick={close}
-                className="flex min-h-[44px] items-center rounded-md px-2 font-medium text-gray-200 transition hover:bg-white/10"
-              >
-                Login
-              </Link>
-              <Link
-                href="/signup"
-                onClick={close}
-                className="flex min-h-[44px] items-center justify-center rounded-md bg-brand-600 px-2 font-semibold text-white transition hover:bg-brand-700"
-              >
-                Sign Up
+              {publicLinks.map(([label, href]) => (
+                <Link key={label} onClick={() => setOpen(false)} href={href} className="py-3 font-semibold">
+                  {label}
+                </Link>
+              ))}
+              <a href={COMPANY.accounts.phoneHref} className="py-3 font-semibold text-[#1689c8]">{COMPANY.accounts.phone}</a>
+              <Link onClick={() => setOpen(false)} href="/login" className="py-3 font-semibold">Client login</Link>
+              <Link onClick={() => setOpen(false)} href="/signup" className="mt-2 bg-[#18372f] px-5 py-3 text-center font-bold text-white">
+                Request estimate
               </Link>
             </>
           )}
