@@ -20,12 +20,12 @@ const steps = [
   ["05", "Handover", "A thorough final check, clean handover and dependable aftercare."],
 ];
 
-const heroImage = "/project-richmond.svg";
+const heroImage = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=88";
 
 const projects = [
   [heroImage, "Richmond", "Rear extension & kitchen"],
-  ["/project-hampstead.svg", "Hampstead", "Full house refurbishment"],
-  ["/project-clapham.svg", "Clapham", "Contemporary interior"],
+  ["https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=82", "Hampstead", "Full house refurbishment"],
+  ["https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=82", "Clapham", "Contemporary interior"],
 ];
 
 const reviews = [
