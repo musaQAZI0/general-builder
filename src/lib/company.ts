@@ -10,7 +10,7 @@ export const COMPANY = {
     emailHref: "mailto:flintlimited.co@gmail.com",
   },
   mainPhone: {
-    label: "+44 7341 171991",
-    href: "tel:+447341171991",
+    label: "07440 050152",
+    href: "tel:+447440050152",
   },
 };
