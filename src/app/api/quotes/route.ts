@@ -19,7 +19,7 @@ export async function GET() {
 
   const quotes = await Quote.find(filter)
     .sort({ createdAt: -1 })
-    .select("userEmail name phone service message postcode propertyType timeline budget preferredContact status adminNotes createdAt updatedAt")
+    .select("userEmail contactEmail name phone service message postcode propertyType timeline budget preferredContact status adminNotes createdAt updatedAt")
     .lean();
 
   return NextResponse.json({ quotes });

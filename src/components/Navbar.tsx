@@ -10,7 +10,7 @@ const publicLinks = [
   ["Services", "/#services"],
   ["Process", "/#process"],
   ["Projects", "/#projects"],
-  ["Accounts", "/contact"],
+  ["Contact", "/contact"],
 ];
 
 function Logo() {
@@ -78,8 +78,8 @@ export default function Navbar() {
                 </Link>
               ))}
               <Link href="/login" className="font-semibold text-[#18372f]">Client login</Link>
-              <Link href="/signup" className="bg-[#18372f] px-5 py-3 font-bold text-white transition hover:bg-[#245548]">
-                Request estimate
+              <Link href="/contact" className="bg-[#18372f] px-5 py-3 font-bold text-white transition hover:bg-[#245548]">
+                Get a quote
               </Link>
             </>
           )}
@@ -111,8 +111,8 @@ export default function Navbar() {
               ))}
               <a href={COMPANY.accounts.phoneHref} className="py-3 font-semibold text-[#1689c8]">{COMPANY.accounts.phone}</a>
               <Link onClick={() => setOpen(false)} href="/login" className="py-3 font-semibold">Client login</Link>
-              <Link onClick={() => setOpen(false)} href="/signup" className="mt-2 bg-[#18372f] px-5 py-3 text-center font-bold text-white">
-                Request estimate
+              <Link onClick={() => setOpen(false)} href="/contact" className="mt-2 bg-[#18372f] px-5 py-3 text-center font-bold text-white">
+                Get a quote
               </Link>
             </>
           )}

@@ -8,12 +8,7 @@ import { sendQuoteNotificationEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
-    // Quote requests come from the protected dashboard, so require a session.
     const session = await getServerSession(authOptions);
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const body = await request.json();
 
     const parsed = quoteSchema.safeParse(body);
@@ -24,12 +19,18 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, phone, message, service, postcode, propertyType, timeline, budget, preferredContact } = parsed.data;
+    const { name, phone, email, message, service, postcode, propertyType, timeline, budget, preferredContact, website } = parsed.data;
+
+    // A hidden field catches basic bot submissions without adding friction for visitors.
+    if (website) {
+      return NextResponse.json({ message: "Your quote request has been received." }, { status: 201 });
+    }
 
     await connectToDatabase();
 
     const quote = await Quote.create({
-      userEmail: session.user?.email,
+      userEmail: session?.user?.email,
+      contactEmail: email || session?.user?.email,
       name,
       phone,
       message,
@@ -49,7 +50,7 @@ export async function POST(request: Request) {
         phone: quote.phone,
         message: quote.message,
         service: quote.service,
-        email: quote.userEmail,
+        email: quote.contactEmail,
         postcode: quote.postcode,
         propertyType: quote.propertyType,
         timeline: quote.timeline,

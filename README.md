@@ -27,12 +27,14 @@ Open http://localhost:3000.
 
 ## Main Flow
 
-Landing (`/`) -> Sign Up (`/signup`) -> Login (`/login`) -> Dashboard (`/dashboard`) -> Request a Quote (`/dashboard/request`) -> Admin management (`/admin`).
+Landing (`/`) -> Request a Quote (`/contact`) without an account. Customers who create an account can sign in to `/dashboard`, submit tracked requests at `/dashboard/request`, and view their request status. Admins manage all requests at `/admin`.
 
 Quote requests are stored in MongoDB and visible to:
 
-- Customers in `/dashboard`
+- Signed-in customers in `/dashboard` (their own requests only)
 - Admin users in `/admin`
+
+Guest requests are saved for admins but are not linked to a customer account.
 
 Admin access is controlled by `ADMIN_EMAILS` or `OWNER_EMAIL`.
 

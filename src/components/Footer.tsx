@@ -29,9 +29,14 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className="flex gap-8 text-sm text-white/75">
-          <Link href="/signup" className="hover:text-[#d5ad55]">Get an estimate</Link>
+        <div className="flex flex-col gap-3 text-sm text-white/75">
+          <Link href="/contact" className="hover:text-[#d5ad55]">Get a quote</Link>
           <Link href="/login" className="hover:text-[#d5ad55]">Client login</Link>
+          <p className="pt-2 font-bold text-white">Areas served</p>
+          <Link href="/areas/richmond" className="hover:text-[#d5ad55]">Richmond</Link>
+          <Link href="/areas/clapham" className="hover:text-[#d5ad55]">Clapham</Link>
+          <Link href="/areas/hampstead" className="hover:text-[#d5ad55]">Hampstead</Link>
+          <Link href="/areas/ealing" className="hover:text-[#d5ad55]">Ealing</Link>
         </div>
       </div>
       <div className="mx-auto flex max-w-7xl flex-col gap-2 border-t border-white/10 px-5 py-5 text-xs text-white/70 sm:flex-row sm:justify-between sm:px-8 lg:px-10">

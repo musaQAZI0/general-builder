@@ -1,17 +1,17 @@
 import { test, expect } from "@playwright/test";
-import { login } from "./helpers/auth";
 
 test.describe("Contact / quote form", () => {
   test.beforeEach(async ({ page }) => {
-    await login(page);
     await page.goto("/contact");
   });
 
   test("submits a valid quote request successfully", async ({ page }) => {
     await page.locator('input[name="name"]').fill("Jane Builder");
     await page.locator('input[name="phone"]').fill("+441234567890");
+    await page.locator('input[name="email"]').fill("jane@example.com");
     await page.selectOption('select[name="service"]', "Painting");
     await page.locator('input[name="postcode"]').fill("SW11 1AA");
+    await page.getByText("Add more project details (optional)").click();
     await page.selectOption('select[name="propertyType"]', "Terraced house");
     await page.selectOption('select[name="timeline"]', "Within 1-3 months");
     await page.selectOption('select[name="budget"]', "GBP 10k-25k");
@@ -23,8 +23,18 @@ test.describe("Contact / quote form", () => {
     await page.getByRole("button", { name: "Submit Quote Request" }).click();
 
     await expect(
-      page.getByText(/your quote request has been received/i)
+      page.getByRole("heading", { name: "Request received" })
     ).toBeVisible();
+  });
+
+  test("guest can submit with only essential details", async ({ page }) => {
+    await page.locator('input[name="name"]').fill("Alex Builder");
+    await page.locator('input[name="phone"]').fill("+441234567891");
+    await page.locator('input[name="postcode"]').fill("SW11 1AA");
+    await page.locator('textarea[name="message"]').fill("I need help with a kitchen refurbishment.");
+
+    await page.getByRole("button", { name: "Submit Quote Request" }).click();
+    await expect(page.getByRole("heading", { name: "Request received" })).toBeVisible();
   });
 
   test("shows validation errors for empty fields", async ({ page }) => {

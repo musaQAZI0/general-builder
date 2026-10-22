@@ -4,12 +4,12 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
 const services = [
-  ["01", "Design & Build", "One accountable team from your first idea through to final handover."],
-  ["02", "House Extensions", "Single, double-storey and wrap-around extensions built around your life."],
-  ["03", "Full Refurbishments", "Complete transformations coordinated across every specialist trade."],
-  ["04", "Electrical Work", "Certified rewiring, lighting, installations and fault finding."],
-  ["05", "Plumbing Work", "Bathrooms, kitchens, heating and dependable plumbing installations."],
-  ["06", "Painting & Finishing", "Meticulous preparation and a clean, lasting professional finish."],
+  ["01", "Design & Build", "One accountable team from your first idea through to final handover.", ""],
+  ["02", "House Extensions", "Single, double-storey and wrap-around extensions built around your life.", "/services/new-extensions"],
+  ["03", "Full Refurbishments", "Complete transformations coordinated across every specialist trade.", "/services/refurbishment"],
+  ["04", "Electrical Work", "Certified rewiring, lighting, installations and fault finding.", "/services/electrical-work"],
+  ["05", "Plumbing Work", "Bathrooms, kitchens, heating and dependable plumbing installations.", "/services/plumbing-work"],
+  ["06", "Painting & Finishing", "Meticulous preparation and a clean, lasting professional finish.", "/services/painting"],
 ];
 
 const steps = [
@@ -46,14 +46,6 @@ const reviews = [
   ],
 ];
 
-const reasons = [
-  "Fixed price - no surprise extras",
-  "Line-by-line scope before you commit",
-  "One point of contact throughout",
-  "Site kept safe, tidy and respectful",
-  "Final quality check and aftercare",
-];
-
 const trustItems = [
   ["Insurance", "Public liability cover and careful site controls before work starts."],
   ["Guarantee", "Written workmanship guarantee with a final handover checklist."],
@@ -77,7 +69,7 @@ export default function HomePage() {
               </h1>
               <p className="mt-6 max-w-xl text-base leading-7 text-white sm:text-lg">Extensions, refurbishments and complete property improvements - delivered beautifully, reliably and completely.</p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/signup" className="rcb-gold-btn">Get a free estimate <span>-&gt;</span></Link>
+                <Link href="/contact" className="rcb-gold-btn">Get a quote <span>-&gt;</span></Link>
                 <a href="tel:+447341171991" className="rcb-outline-btn">Call +44 7341 171991</a>
               </div>
               <div className="mt-9 flex flex-wrap items-center gap-4 border-t border-white/15 pt-6">
@@ -129,17 +121,17 @@ export default function HomePage() {
               </div>
               <div className="max-w-2xl lg:justify-self-end">
                 <p className="text-lg leading-8 text-slate-600">Building work should not mean chasing six different contractors. We coordinate every specialist, every delivery and every detail so your project moves forward with confidence.</p>
-                <Link href="/signup" className="mt-6 inline-flex items-center gap-3 border-b-2 border-[#c99d3d] pb-1 text-sm font-bold text-[#101c35]">Talk to our team <span>-&gt;</span></Link>
+                <Link href="/contact" className="mt-6 inline-flex items-center gap-3 border-b-2 border-[#c99d3d] pb-1 text-sm font-bold text-[#101c35]">Talk to our team <span>-&gt;</span></Link>
               </div>
             </div>
             <div className="mt-14 grid border-l border-t border-slate-200 sm:grid-cols-2 lg:grid-cols-3">
-              {services.map(([n, t, d]) => (
+              {services.map(([n, t, d, href]) => (
                 <div key={n} className="group border-b border-r border-slate-200 p-7 transition hover:bg-[#101c35] sm:p-9">
                   <div className="flex justify-between">
                     <span className="text-xs font-bold text-[#c99d3d]">{n}</span>
-                    <span className="text-xl text-[#c99d3d] transition group-hover:translate-x-1">-&gt;</span>
+                    <span aria-hidden="true" className="text-xl text-[#c99d3d] transition group-hover:translate-x-1">-&gt;</span>
                   </div>
-                  <h3 className="mt-10 text-xl font-bold group-hover:text-white">{t}</h3>
+                  <h3 className="mt-10 text-xl font-bold group-hover:text-white">{href ? <Link href={href}>{t}</Link> : t}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-500 group-hover:text-white/65">{d}</p>
                 </div>
               ))}
@@ -173,7 +165,7 @@ export default function HomePage() {
                 <p className="rcb-kicker">Our work</p>
                 <h2 className="rcb-title mt-4">Selected projects.</h2>
               </div>
-              <Link href="/signup" className="text-sm font-bold">Start your project -&gt;</Link>
+              <Link href="/contact" className="text-sm font-bold">Start your project -&gt;</Link>
             </div>
             <div className="mt-12 grid gap-6 md:grid-cols-3">
               {projects.map(([img, place, title]) => (
@@ -226,23 +218,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="py-20 sm:py-24">
-          <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:px-10">
-            <div>
-              <p className="rcb-kicker">Why Flint LTD</p>
-              <h2 className="rcb-title mt-4">The things your last builder probably didn&apos;t do.</h2>
-            </div>
-            <div className="divide-y divide-slate-200 border-y border-slate-200">
-              {reasons.map((x, i) => (
-                <div key={x} className="flex items-center gap-5 py-5">
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#d5ad55] text-xs font-bold">{i + 1}</span>
-                  <span className="font-bold">{x}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="border-y border-[#18372f]/10 bg-[#f5f6f8] py-20 sm:py-24">
           <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
             <div className="grid gap-8 lg:grid-cols-[.75fr_1.25fr]">
@@ -262,34 +237,13 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="border-y border-[#18372f]/10 bg-white py-16 sm:py-20">
-          <div className="mx-auto grid max-w-7xl gap-8 px-5 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:px-10">
-            <div>
-              <p className="rcb-kicker">Client and business support</p>
-              <h2 className="rcb-title mt-4">Project requests, accounts and communication in one place.</h2>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[
-                ["Client portal", "Track estimate requests and keep your project details together.", "/login", "Open portal"],
-                ["Accounts team", "For invoice, payment and company account questions.", "/contact", "Contact accounts"],
-              ].map(([title, copy, href, action]) => (
-                <Link key={title} href={href} className="border border-[#18372f]/10 bg-[#f7f3e9] p-6 transition hover:border-[#245548] hover:bg-white">
-                  <p className="text-lg font-bold">{title}</p>
-                  <p className="mt-3 min-h-[72px] text-sm leading-6 text-slate-600">{copy}</p>
-                  <span className="mt-5 inline-flex text-sm font-bold text-[#245548]">{action} -&gt;</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="bg-[#d5ad55] py-16">
           <div className="mx-auto flex max-w-7xl flex-col justify-between gap-8 px-5 sm:px-8 md:flex-row md:items-center lg:px-10">
             <div>
               <p className="text-xs font-bold uppercase tracking-[.2em] text-[#18372f]">Let&apos;s build it properly</p>
               <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Tell us about your project.</h2>
             </div>
-            <Link href="/signup" className="inline-flex min-h-14 items-center justify-center gap-10 bg-[#101c35] px-7 font-bold text-white">Get a free estimate <span>-&gt;</span></Link>
+            <Link href="/contact" className="inline-flex min-h-14 items-center justify-center gap-10 bg-[#101c35] px-7 font-bold text-white">Get a quote <span>-&gt;</span></Link>
           </div>
         </section>
       </main>

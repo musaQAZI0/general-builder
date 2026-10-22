@@ -15,10 +15,10 @@ function RequestFormPanel() {
         <Link href="/dashboard" className="text-xs font-bold uppercase tracking-[.18em] text-[#a98235]">
           &lt;- Back to dashboard
         </Link>
-        <section className="mt-8 border border-[#18372f]/10 bg-[#18372f] p-6 text-white shadow-xl sm:p-8">
-          <p className="text-xs font-bold uppercase tracking-[.18em] text-[#d2b776]">Project request</p>
+        <section className="mt-8 border border-[#18372f]/10 bg-white p-6 text-[#18372f] shadow-sm sm:p-8">
+          <p className="text-xs font-bold uppercase tracking-[.18em] text-[#a98235]">Project request</p>
           <h1 className="mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Request a Quote</h1>
-          <p className="mt-3 text-sm leading-6 text-white/65">Share the key details so Flint LTD can review the scope and respond with the right next step.</p>
+          <p className="mt-3 text-sm leading-6 text-slate-600">Share the key details so Flint LTD can review the scope and respond with the right next step.</p>
           <div className="mt-7">
             <QuoteForm defaultService={service} />
           </div>

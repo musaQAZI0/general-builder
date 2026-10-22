@@ -1,8 +1,8 @@
-export interface Service { slug: string; title: string; description: string; icon: string; }
+export interface Service { slug: string; title: string; description: string; icon: string; scope: string[]; }
 export const SERVICES: Service[] = [
-  { slug:"new-extensions", title:"Extensions", description:"Thoughtfully designed additions that create more room and lasting value.", icon:"01" },
-  { slug:"refurbishment", title:"Refurbishment", description:"Complete property transformations, carefully managed inside and out.", icon:"02" },
-  { slug:"electrical-work", title:"Electrical", description:"Safe, certified installations, rewiring, lighting and fault finding.", icon:"03" },
-  { slug:"plumbing-work", title:"Plumbing", description:"Reliable plumbing for kitchens, bathrooms, heating and new installations.", icon:"04" },
-  { slug:"painting", title:"Painting", description:"Crisp interior and exterior finishes, prepared to look better for longer.", icon:"05" },
+  { slug:"new-extensions", title:"Extensions", description:"Thoughtfully designed additions that create more room and lasting value.", icon:"01", scope:["Discuss the space you need and how it should connect to your home.", "Agree the work, budget and timeline before building begins.", "Coordinate the trades and finish with a clear handover."] },
+  { slug:"refurbishment", title:"Refurbishment", description:"Complete property transformations, carefully managed inside and out.", icon:"02", scope:["Review the rooms, finishes and repairs included in the project.", "Plan the order of work across the different trades.", "Check the completed work and any remaining details at handover."] },
+  { slug:"electrical-work", title:"Electrical", description:"Safe, certified installations, rewiring, lighting and fault finding.", icon:"03", scope:["Discuss lighting, sockets or rewiring needs for the property.", "Identify how electrical work fits around other building work.", "Review the finished installation and relevant documentation."] },
+  { slug:"plumbing-work", title:"Plumbing", description:"Reliable plumbing for kitchens, bathrooms, heating and new installations.", icon:"04", scope:["Review plumbing requirements for kitchens, bathrooms or heating.", "Plan pipework and fixtures alongside the wider project.", "Check operation and finishing before handover."] },
+  { slug:"painting", title:"Painting", description:"Crisp interior and exterior finishes, prepared to look better for longer.", icon:"05", scope:["Discuss surfaces, colours and the finish you want.", "Prepare surfaces before applying the chosen finish.", "Inspect edges, coverage and clean-up at completion."] },
 ];

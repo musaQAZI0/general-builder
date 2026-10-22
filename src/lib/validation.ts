@@ -18,19 +18,21 @@ export const loginSchema = z.object({
 });
 
 export const quoteSchema = z.object({
-  name: z.string().trim().min(2, "Please enter your name"),
+  name: z.string().trim().min(2, "Please enter your name").max(100),
   phone: z
     .string()
     .trim()
     .min(7, "Please enter a valid phone number")
     .regex(/^[+]?[\d\s()-]{7,20}$/, "Please enter a valid phone number"),
-  message: z.string().trim().min(5, "Please describe the job (min 5 characters)"),
-  service: z.string().trim().optional(),
+  email: z.union([z.string().trim().email("Please enter a valid email address"), z.literal("")]).optional(),
+  message: z.string().trim().min(5, "Please describe the job (min 5 characters)").max(2000),
+  service: z.string().trim().max(100).optional(),
   postcode: z.string().trim().min(3, "Please enter the project postcode").max(12, "Please enter a valid postcode"),
-  propertyType: z.string().trim().min(1, "Please choose a property type"),
-  timeline: z.string().trim().min(1, "Please choose a timeline"),
-  budget: z.string().trim().min(1, "Please choose a budget range"),
-  preferredContact: z.string().trim().min(1, "Please choose a contact method"),
+  propertyType: z.string().trim().max(100).optional(),
+  timeline: z.string().trim().max(100).optional(),
+  budget: z.string().trim().max(100).optional(),
+  preferredContact: z.string().trim().max(100).optional(),
+  website: z.string().max(200).optional(),
 });
 
 export const quoteStatusSchema = z.object({

@@ -9,6 +9,7 @@ const statuses = ["Received", "Reviewing", "Estimate Sent", "Approved", "In Prog
 interface Quote {
   _id: string;
   userEmail?: string;
+  contactEmail?: string;
   name: string;
   phone: string;
   service?: string;
@@ -104,7 +105,9 @@ export default function AdminPage() {
                   <h2 className="mt-4 text-xl font-bold">{quote.name} - {quote.service || "General enquiry"}</h2>
                   <div className="mt-3 grid gap-2 text-sm text-slate-600 sm:grid-cols-2">
                     <a className="font-bold text-[#245548]" href={`tel:${quote.phone}`}>{quote.phone}</a>
-                    <a className="break-all font-bold text-[#245548]" href={`mailto:${quote.userEmail}`}>{quote.userEmail || "No account email"}</a>
+                    {(quote.contactEmail || quote.userEmail) ? (
+                      <a className="break-all font-bold text-[#245548]" href={`mailto:${quote.contactEmail || quote.userEmail}`}>{quote.contactEmail || quote.userEmail}</a>
+                    ) : <p>No email supplied</p>}
                     <p>Postcode: {quote.postcode || "Not supplied"}</p>
                     <p>Property: {quote.propertyType || "Not supplied"}</p>
                     <p>Timeline: {quote.timeline || "Not supplied"}</p>
